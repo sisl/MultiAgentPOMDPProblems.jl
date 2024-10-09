@@ -194,12 +194,13 @@
     @testset "Rewards" begin
         pomdp = WirelessPOMDP(num_agents=2)
         s = WirelessState([WirelessIdle, WirelessPacket], [2, 1])
-        a = actionindex(pomdp, (WirelessSend, WirelessListen))
+        a = (WirelessSend, WirelessListen)
         r = reward(pomdp, s, a)
         @test r == -sum(s.queue_length)
         @test r == -(2 + 1)
 
         s = WirelessState([WirelessPacket, WirelessPacket], [3, 3])
+        a = (WirelessSend, WirelessListen)
         r = reward(pomdp, s, a)
         @test r == -6
     end

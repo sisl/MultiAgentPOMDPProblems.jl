@@ -202,17 +202,17 @@
         
         s = str_state(pomdp_1_0, "gGGg\nbBBb\n1oo2\n", (:east, :west))
         od = observation(pomdp_1_0, (:turn_left, :turn_left), s)
-        @test od isa Deterministic
-        @test od.val == [obs_dict[:empty], obs_dict[:empty]]
+        @test od isa SparseCat
+        @test od.vals[1] == [obs_dict[:empty], obs_dict[:empty]]
 
         s = str_state(pomdp_1_0, "gGGg\nbBBb\n1oo2\n", (:north, :south))
         od = observation(pomdp_1_0, (:turn_left, :turn_left), s)
-        @test od.val == [obs_dict[:small_box], obs_dict[:wall]]
+        @test od.vals[1] == [obs_dict[:small_box], obs_dict[:wall]]
         
         s = str_state(pomdp_2_0, "goGGog\noooooo\nobBBbo\noo12oo", (:east, :north))
         od = observation(pomdp_2_0, (:turn_left, :turn_left), s)
-        @test od isa Deterministic
-        @test od.val == [obs_dict[:agent], obs_dict[:large_box]]
+        @test od isa SparseCat
+        @test od.vals[1] == [obs_dict[:agent], obs_dict[:large_box]]
         
         
         pomdp_1_1 = BoxPushPOMDP(; map_option=1, observation_agent=1)
@@ -230,13 +230,13 @@
             
         s = str_state(pomdp_1_1, "gGGg\nbBBb\n1oo2\n", (:west, :west))
         od = observation(pomdp_1_1, (:turn_left, :turn_left), s)
-        @test od isa Deterministic
-        @test od.val == [obs_dict[:wall]]
+        @test od isa SparseCat
+        @test od.vals[1] == [obs_dict[:wall]]
         
         s = str_state(pomdp_2_2, "goGGog\noooooo\nobBBbo\noo12oo", (:north, :west))
         od = observation(pomdp_2_2, (:turn_left, :turn_left), s)
-        @test od isa Deterministic
-        @test od.val == [obs_dict[:agent]]
+        @test od isa SparseCat
+        @test od.vals[1] == [obs_dict[:agent]]
         
         POMDPTools.Testing.has_consistent_observation_distributions(pomdp_1_0)
         POMDPTools.Testing.has_consistent_observation_distributions(pomdp_1_1)
