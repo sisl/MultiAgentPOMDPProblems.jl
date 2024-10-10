@@ -81,6 +81,7 @@ Keywords:
 - `wall_penalty::Float64`: Penalty for hitting a wall. Default = -5.0.
 """
 function BoxPushPOMDP(;
+    num_agents::Int = 2,
     map_option::Int = 1,
     discount_factor::Float64=0.9,
     transition_prob::Float64=0.9,
@@ -102,6 +103,9 @@ function BoxPushPOMDP(;
     end
     if !(observation_agent in 0:2)
         throw(ArgumentError("Invalid observation agent. Must be 0, 1, or 2."))
+    end
+    if num_agents != 2
+        throw(ArgumentError("Invalid number of agents. Must be 2."))
     end
     
     # Create metagraph
