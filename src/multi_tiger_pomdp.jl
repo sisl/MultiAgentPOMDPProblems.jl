@@ -56,6 +56,11 @@ function MultiTigerPOMDP(;
     correct_obs_prob::Float64 = 0.85,
     observation_agent::Int = 0
 )
+    @assert num_agents >= 2 "Number of agents must be at least 2"
+    @assert 0 <= correct_obs_prob <= 1 "Correct observation probability must be between 0 and 1"
+    @assert 0 <= discount_factor <= 1 "Discount factor must be between 0 and 1"
+    @assert 0 <= observation_agent <= num_agents "Observation agent must be between 0 and $num_agents"
+    
     return MultiTigerPOMDP(
         num_agents, listen_cost, open_correct_reward, open_wrong_penalty,
         discount_factor, correct_obs_prob, observation_agent
