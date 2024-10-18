@@ -4,7 +4,7 @@ using POMDPs
 using POMDPTools
 using MetaGraphs
 using Random
-
+using Aqua
 using MultiAgentPOMDPProblems
 
 const RUN_TESTS = isempty(ARGS) ? ["all"] : ARGS
@@ -39,4 +39,7 @@ const RUN_TESTS = isempty(ARGS) ? ["all"] : ARGS
         @info "Running BoxPushPOMDP tests"
         include("boxpush_test.jl")
     end
+    
+    Aqua.test_all(MultiAgentPOMDPProblems)
+    
 end
