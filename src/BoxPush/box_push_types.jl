@@ -623,8 +623,9 @@ function map_string_to_state(mg::MetaDiGraph, map_str::String, orientation::Tupl
     
     
     agent_pos_1, agent_pos_2 = (0, 0), (0, 0)
-    small_box_pos = Vector{Tuple{Int, Int}}(undef, num_b)
-    large_box_pos = Vector{Tuple{Int, Int}}(undef, Int(num_B / 2))
+    small_box_pos = fill((0, 0), num_b)
+    large_box_pos = fill((0, 0), Int(num_B / 2))
+    
     small_box_counter, large_box_counter = 1, 1
     
     for (i, line) in enumerate(lines)
