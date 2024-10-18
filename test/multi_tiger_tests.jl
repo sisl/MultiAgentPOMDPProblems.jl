@@ -52,6 +52,11 @@
         @test all(o[1] in [HearLeft, HearRight] for o in obs)
         @test all(o[2] in [HearLeft, HearRight] for o in obs)
         
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
+        
         @test POMDPTools.Testing.has_consistent_observation_distributions(pomdp)
         
         @test pomdp.observation_agent == 0
@@ -75,6 +80,12 @@
         @test o.probs[hear_right_index] ≈ (1 - pomdp.correct_obs_prob)
         o = observation(pomdp, [Listen, OpenLeft], TigerLeft)
         @test o isa POMDPTools.Uniform
+        
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
+        
     end
     
     @testset "Rewards" begin

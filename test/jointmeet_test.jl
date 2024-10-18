@@ -118,6 +118,11 @@
         @test o.vals[1] isa Vector{Int}
         @test all(o.vals[1] .== sp.r_positions)
         
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
+        
         # @test POMDPTools.Testing.has_consistent_observation_distributions(pomdp)
         
         # Full observation for agent 1
@@ -167,6 +172,11 @@
         o = observation(pomdp, [1, 1], sp)
         @test o isa SparseCat
         @test length(o.vals) == get_prop(pomdp.mg, :ncols) ^ pomdp.num_agents
+        
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
         
         # Boundaries lr (agent 1)
         map_str = """oooxo

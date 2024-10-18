@@ -188,7 +188,17 @@
     
     @testset "Observations" begin
         pomdp_1_0 = BoxPushPOMDP(; map_option=1, observation_agent=0)
+        
+        @test obsindex(pomdp_1_0, observations(pomdp_1_0)[1]) == 1
+        @test obsindex(pomdp_1_0, observations(pomdp_1_0)[end]) == length(observations(pomdp_1_0))
+        obs_idxs = rand(1:length(observations(pomdp_1_0)), 10)
+        @test all(obsindex(pomdp_1_0, observations(pomdp_1_0)[oi]) == oi for oi in obs_idxs)
+        
         pomdp_2_0 = BoxPushPOMDP(; map_option=2, observation_agent=0)
+        @test obsindex(pomdp_1_0, observations(pomdp_1_0)[1]) == 1
+        @test obsindex(pomdp_1_0, observations(pomdp_1_0)[end]) == length(observations(pomdp_1_0))
+        obs_idxs = rand(1:length(observations(pomdp_1_0)), 10)
+        @test all(obsindex(pomdp_1_0, observations(pomdp_1_0)[oi]) == oi for oi in obs_idxs)
         
         obs = observations(pomdp_1_0)
         @test length(obs) == 5^2
@@ -216,6 +226,11 @@
         
         
         pomdp_1_1 = BoxPushPOMDP(; map_option=1, observation_agent=1)
+        @test obsindex(pomdp_1_1, observations(pomdp_1_1)[1]) == 1
+        @test obsindex(pomdp_1_1, observations(pomdp_1_1)[end]) == length(observations(pomdp_1_1))
+        obs_idxs = rand(1:length(observations(pomdp_1_1)), 10)
+        @test all(obsindex(pomdp_1_1, observations(pomdp_1_1)[oi]) == oi for oi in obs_idxs)
+        
         pomdp_2_2 = BoxPushPOMDP(; map_option=2, observation_agent=2)
         
         obs = observations(pomdp_1_1)

@@ -80,6 +80,11 @@
         @test length(o) == 5^pomdp.num_agents
         @test all(obs isa Vector{Tuple{BroadcastObservation,BroadcastState}} for obs in o)
         
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
+        
         o3 = observations(pomdp3)
         @test length(o3) == 5^pomdp3.num_agents
         @test all(obs isa Vector{Tuple{BroadcastObservation,BroadcastState}} for obs in o3)
@@ -90,6 +95,11 @@
         @test all(obs isa Vector{Tuple{BroadcastObservation,BroadcastState}} for obs in o_designated)
         
         @test_throws MethodError observation(pomdp, actions(pomdp)[1], states(pomdp)([1]))
+        
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
        
         o = observation(pomdp, [BufferEmpty, BufferEmpty], [BroadcastListen, BroadcastListen], [BufferEmpty, BufferEmpty])
         @test o isa POMDPTools.SparseCat

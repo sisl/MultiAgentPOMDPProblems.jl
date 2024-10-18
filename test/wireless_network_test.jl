@@ -164,6 +164,11 @@
 
         @test o_dist.vals[1] isa Vector{WirelessObservation}
         
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
+        
         # Check that observations are valid
         for o in o_dist.vals
             @test length(o) == pomdp.num_agents
@@ -185,6 +190,11 @@
         @test o_dist.vals[1] isa Vector{WirelessObservation}
         @test length(o_dist.vals[1]) == 1
         @test o_dist.vals[1][1] isa WirelessObservation
+        
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
         
         @test POMDPTools.Testing.has_consistent_observation_distributions(pomdp)
         

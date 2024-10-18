@@ -116,6 +116,11 @@
         
         @test length(observations(pomdp)) == prod(state_vec)
         @test observations(pomdp)[1] isa Vector{Int}
+        
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
 
         sp = StochasticMarsState((1, 2), [true, false, true, false])
         o = observation(pomdp, [1, 1], sp)
@@ -135,6 +140,11 @@
         state_vec = [num_grids, 2] 
         @test length(observations(pomdp)) == prod(state_vec)
         @test observations(pomdp)[1] isa Vector{Int}
+        
+        @test obsindex(pomdp, observations(pomdp)[1]) == 1
+        @test obsindex(pomdp, observations(pomdp)[end]) == length(observations(pomdp))
+        obs_idxs = rand(1:length(observations(pomdp)), 10)
+        @test all(obsindex(pomdp, observations(pomdp)[oi]) == oi for oi in obs_idxs)
         
         o = observation(pomdp, [1, 1], sp)
         @test o isa Deterministic
