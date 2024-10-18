@@ -13,11 +13,10 @@ function POMDPs.actionindex(pomdp::JointMeetPOMDP, a::Vector{Int})
     end
     return LinearIndices(Tuple(length(JOINTMEET_ACTIONS_DICT) for _ in 1:pomdp.num_agents))[a...]
 end
-
+POMDPs.actionindex(::JointMeetPOMDP, ::Tuple{}) = throw(ArgumentError("Invalid action tuple (empty)"))
 function POMDPs.actionindex(pomdp::JointMeetPOMDP, a::Tuple{Vararg{Int}})
     return POMDPs.actionindex(pomdp, collect(a))
 end
-
 function POMDPs.actionindex(pomdp::JointMeetPOMDP, a::Tuple{Vararg{Symbol}})
     return POMDPs.actionindex(pomdp, [JOINTMEET_ACTIONS_DICT[ai] for ai in a])
 end 

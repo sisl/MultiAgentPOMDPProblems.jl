@@ -345,6 +345,7 @@ function POMDPs.actions(pomdp::StochasticMarsPOMDP)
      return acts
 end
 
+POMDPs.actionindex(::StochasticMarsPOMDP, ::Tuple{}) = throw(ArgumentError("Invalid action tuple (empty)"))
 function POMDPs.actionindex(pomdp::StochasticMarsPOMDP, a::Tuple{Vararg{Int}})
     return POMDPs.actionindex(pomdp, collect(a))
 end

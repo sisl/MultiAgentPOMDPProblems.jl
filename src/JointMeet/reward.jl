@@ -1,4 +1,4 @@
-
+POMDPs.reward(::JointMeetPOMDP, ::JointMeetState, ::Tuple{}) = throw(ArgumentError("Invalid action tuple (empty)"))
 function POMDPs.reward(pomdp::JointMeetPOMDP, si::JointMeetState, a::Tuple{Vararg{Int}})
     return POMDPs.reward(pomdp, si, collect(a))
 end

@@ -192,6 +192,7 @@ function POMDPs.actionindex(pomdp::WirelessPOMDP, a::Vector{WirelessAction})
     @assert all(ai in instances(WirelessAction) for ai in a) "Invalid action"
     return LinearIndices(Tuple(fill(length(instances(WirelessAction)), pomdp.num_agents)))[Int.(a)...]
 end
+POMDPs.actionindex(::WirelessPOMDP, ::Tuple{}) = throw(ArgumentError("Invalid action tuple (empty)"))
 function POMDPs.actionindex(pomdp::WirelessPOMDP, a::Tuple{Vararg{Int}})
     return POMDPs.actionindex(pomdp, WirelessAction.(collect(a)))
 end
