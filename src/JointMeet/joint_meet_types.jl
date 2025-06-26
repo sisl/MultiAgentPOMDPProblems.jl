@@ -72,7 +72,7 @@ end
     - `:boundaries_both`: observation of left, right, top, and bottom boundaries (9 per agent)
 - `observation_sigma::Float64`: Standard deviation of the observation noise, default = 0.0
 - `observation_agent::Int`: Agent to observe, default = 1 (0 = all agents)
-- `transition_prob::Float64`: Probability of transitioning to the next state, default = 1.0
+- `transition_prob::Float64`: Probability of transitioning to the next state, default = 0.6
 - `transition_alternatives::Symbol`: Alternate transitions to consider when `transition_prob` is not 1.0, default = :all
     - `:all`: all transitions are alternatives except stay (if stay, no alternatives)
     - `:not_opposite`: all transitions are alternatives except stay and the opposite direction

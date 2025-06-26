@@ -76,12 +76,11 @@ function POMDPs.transition(pomdp::BoxPushPOMDP, s::BoxPushState, a::Vector{Int})
 
             # Handle box movements
             # Agents attempting to push small boxes
-            for (agent_idx, pos, orient, ai) in zip(1:2, [intended_pos1, intended_pos2], 
-                [orient1, orient2], a)
+            for (agent_idx, pos, orient, ai) in zip(1:2, [intended_pos1, intended_pos2], [orient1, orient2], a)
                 if ai == BOX_PUSH_ACTIONS[:move_forward] && pos != s.agent_pos[agent_idx]
                     # Agent moved forward successfully
                     idx_in_small_boxes = findfirst(x -> x == pos, s.small_box_pos)
-                    if idx_in_small_boxes !== nothing
+                    if !isnothing(idx_in_small_boxes)
                         # Agent is attempting to push a small box
                         box_movement_allowed = false
                         # Determine box movement direction based on the box and agent
@@ -174,6 +173,16 @@ function POMDPs.transition(pomdp::BoxPushPOMDP, s::BoxPushState, a::Vector{Int})
 
             # Ensure agents didn't end up in the same position after adjustments
             if intended_pos1 == intended_pos2
+                continue
+            end
+            
+            # Check if either agent is in the same state as a box
+            if (intended_pos1 in s.small_box_pos) || 
+                (intended_pos1 in s.large_box_pos) || 
+                (intended_pos1 in s.large_box_pos .+ 1) ||
+                (intended_pos2 in s.small_box_pos) || 
+                (intended_pos2 in s.large_box_pos) || 
+                (intended_pos2 in s.large_box_pos .+ 1)
                 continue
             end
             
